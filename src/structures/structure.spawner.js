@@ -1,17 +1,17 @@
-var creepUtils = require('utils.creep')
+const creepUtils = require('src/utils/utils.creep')
 
 const spawnQuota = {
-    harvesters: 8,
+    harvesters: 1,
     energyTransporters: 0,
-    builders: 5,
-    upgraders: 3,
-    repairers: 3,
-    barbarians: 5
+    builders: 2,
+    upgraders: 2,
+    repairers: 1,
+    barbarians: 0
 }
 
 const sourceQuota = {
-    0: 4,
-    1: 4
+    0: 0,
+    1: 1
 }
 
 // Creep blueprints
@@ -26,11 +26,11 @@ const barbarianBlueprint = {
 }
 
 // Get the amount of screeps for a certain role
-var getScreepCount = function(role){
+const getScreepCount = function(role){
     var count = 0
-    for(var name in Game.creeps) {
-        var creep = Game.creeps[name]
-        if(creep.memory.role == role) {
+    for(const name in Game.creeps) {
+        const creep = Game.creeps[name]
+        if(creep.memory.role === role) {
             count++
         }
     }
@@ -39,12 +39,11 @@ var getScreepCount = function(role){
 
 /**
  * Method to check cost and spawn screep
- * @param {*} spawn 
- * @param {*} screepBlueprint 
- * @param {*} index Used for naming purposes
+ * @param {*} spawn
+ * @param {*} screepBlueprint
  */
 
-var trySpawnCreep = function(spawn, screepBlueprint){
+const trySpawnCreep = function(spawn, screepBlueprint){
     // console.log("Spawning "+screepBlueprint.memory.role)
     spawn.spawnCreep(screepBlueprint.body, creepUtils.generateCreepName(), {memory: screepBlueprint.memory})
 }
@@ -53,11 +52,11 @@ var trySpawnCreep = function(spawn, screepBlueprint){
  * Obtain the amount of harvesters assigned to a source.
  * @param {*} index 
  */
-var getHarvesterCountForSource = function(index){
-    var count = 0;
+const getHarvesterCountForSource = function(index){
+    let count = 0;
     
-    for(var name in Game.creeps){
-        if(Game.creeps[name].memory.source == index){
+    for(const name in Game.creeps){
+        if(Game.creeps[name].memory['source'] === index){
             count++;
         }
     }
@@ -74,40 +73,51 @@ module.exports = {
         var repairers = getScreepCount("repairer")
         var barbarians = getScreepCount("barbarian")
         
+        // Spawn harvester
         if(harvesters < spawnQuota.harvesters){
-            // Assign a source to this harvester
-            var blueprint = gruntBlueprint;
+            let blueprint = gruntBlueprint;
             blueprint.memory.role = "harvester"
-            if(getHarvesterCountForSource(1) < sourceQuota[1]){
-                blueprint.memory.source = 1;
-            } else {
-                blueprint.memory.source = 0;
+            
+            // Assign a source to this harvester (try to meet the defined quotas)
+            let sources = Object.keys(sourceQuota);
+            for(let i = 0; i < sources.length; i++){
+                const sourceId = sources[i];
+                if(getHarvesterCountForSource(sourceId) < sourceQuota[sourceId]){
+                    blueprint.memory.source = sourceId;
+                    break;
+                }
             }
             
             trySpawnCreep(spawn, blueprint);
         }
+
+        // Spawn energy transporter
         if(energyTransporters < spawnQuota.energyTransporters){
-            var blueprint = gruntBlueprint;
+            let blueprint = gruntBlueprint;
             blueprint.memory.role = "energyTransporter"
             trySpawnCreep(spawn, blueprint);
         } 
+        // Spawn builder
         else if(builders < spawnQuota.builders){
-            var blueprint = gruntBlueprint;
+            let blueprint = gruntBlueprint;
             blueprint.memory.role = "builder"
             trySpawnCreep(spawn, blueprint);
         }
+        // Spawn upgrader
         else if(upgraders < spawnQuota.upgraders){
-            var blueprint = gruntBlueprint;
+            let blueprint = gruntBlueprint;
             blueprint.memory.role = "upgrader"
             trySpawnCreep(spawn, blueprint);
         } 
+        // Spawn repairer
         else if(repairers < spawnQuota.repairers){
-            var blueprint = gruntBlueprint;
+            let blueprint = gruntBlueprint;
             blueprint.memory.role = "repairer"
             trySpawnCreep(spawn, blueprint);
-        } 
+        }
+        // Spawn barbarian
         else if(barbarians < spawnQuota.barbarians){
-            var blueprint = barbarianBlueprint;
+            let blueprint = barbarianBlueprint;
             blueprint.memory.role = "barbarian"
             trySpawnCreep(spawn, blueprint);
         }

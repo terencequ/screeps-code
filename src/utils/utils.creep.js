@@ -9,8 +9,8 @@ module.exports = {
      * Generate a name, that all other owned creeps do not have.
      */
     generateCreepName(){
-        var index = 0
-        var names = Object.keys(Game.creeps);
+        let index = 0
+        const names = Object.keys(Game.creeps);
 
         while(index < potentialNames.length){
             if(!names.includes(potentialNames[index])){
@@ -27,16 +27,12 @@ module.exports = {
      * @param {*} room 
      */
     areSpawnsFullForRoom: function(room){
-        var emptySpawns = room.find(FIND_STRUCTURES, {filter: (structure)=>{
-            if(structure.structureType == STRUCTURE_SPAWN && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0){
+        let emptySpawns = room.find(FIND_STRUCTURES, {filter: (structure)=>{
+            if(structure.structureType === STRUCTURE_SPAWN && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0){
                 return true;
             }
         }})
 
-        if(emptySpawns.length == 0){
-            return true;
-        } else {
-            return false;
-        }
+        return emptySpawns.length === 0;
     }
 };

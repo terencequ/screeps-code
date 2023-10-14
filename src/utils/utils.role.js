@@ -4,7 +4,7 @@ module.exports = {
      * @param {*} creep 
      */
     upgradeController: function (creep) {
-        if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+        if (creep.upgradeController(creep.room.controller) === ERR_NOT_IN_RANGE) {
             creep.moveTo(creep.room.controller, { visualizePathStyle: { stroke: '#ffffff' } });
         } else {
             creep.say('🔨🔼');
@@ -18,10 +18,10 @@ module.exports = {
      */
     withdrawEnergyFromContainer: function (creep) {
         // Find a list of containers that aren't empty
-        var containers = creep.room.find(FIND_STRUCTURES, {
+        const containers = creep.room.find(FIND_STRUCTURES, {
             filter: (structure) => {
                 return (
-                    structure.structureType == STRUCTURE_CONTAINER &&
+                    structure.structureType === STRUCTURE_CONTAINER &&
                     structure.store.getUsedCapacity(RESOURCE_ENERGY) > 0
                 );
             }
@@ -30,11 +30,11 @@ module.exports = {
             return c2.store.getUsedCapacity(RESOURCE_ENERGY) - c1.store.getUsedCapacity(RESOURCE_ENERGY);
         })
 
-        if (containers.length == 0) {
+        if (containers.length === 0) {
             return false;
         }
 
-        if (creep.withdraw(containers[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+        if (creep.withdraw(containers[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
             creep.moveTo(containers[0], { visualizePathStyle: { stroke: '#ffaa00' } });
         } else {
             creep.say("⚡🤏")
@@ -53,7 +53,7 @@ module.exports = {
         var containers = creep.room.find(FIND_STRUCTURES, {
             filter: (structure) => {
                 return (
-                    structure.structureType == STRUCTURE_CONTAINER &&
+                    structure.structureType === STRUCTURE_CONTAINER &&
                     structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
                 );
             }
@@ -62,12 +62,12 @@ module.exports = {
             return c2.store.getFreeCapacity(RESOURCE_ENERGY) - c1.store.getFreeCapacity(RESOURCE_ENERGY);
         })
 
-        if (containers.length == 0) {
+        if (containers.length === 0) {
             return false;
         }
 
         if (containers.length > 0) {
-            if (creep.transfer(containers[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+            if (creep.transfer(containers[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
                 creep.moveTo(containers[0], { visualizePathStyle: { stroke: "#ffffff" } })
             } else {
                 creep.say("⚡👋")

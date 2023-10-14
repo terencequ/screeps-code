@@ -1,17 +1,17 @@
-var roleUtils = require('utils.role')
+const roleUtils = require('src/utils/utils.role')
 
-var roleRepairer = {
+const roleRepairer = {
     /** @param {Creep} creep **/
     run: function (creep) {
-        if (creep.memory.repairing && creep.store[RESOURCE_ENERGY] == 0) {
-            creep.memory.repairing = false;
+        if (creep.memory['repairing'] && creep.store[RESOURCE_ENERGY] === 0) {
+            creep.memory['repairing'] = false;
         }
-        if (!creep.memory.repairing && creep.store.getFreeCapacity() == 0) {
-            creep.memory.repairing = true;
+        if (!creep.memory['repairing'] && creep.store.getFreeCapacity() === 0) {
+            creep.memory['repairing'] = true;
         }
 
         // Perform action
-        if (creep.memory.repairing) {
+        if (creep.memory['repairing']) {
             // Repair
             roleUtils.repairBuilding(creep)
         }

@@ -1,0 +1,21 @@
+{
+  "name": "screeps-code",
+  "version": "1.0.0",
+  "description": "Code base for my Screeps account.",
+  "main": "src/main.js",
+  "scripts": {
+    "build": "grunt build",
+    "build-and-publish": "grunt build-and-publish"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@types/grunt": "^0.4.28",
+    "@types/screeps": "^3.3.4",
+    "grunt-screeps": "^1.5.0",
+    "grunt-contrib-clean": "^2.0.1",
+    "grunt-contrib-copy": "^1.0.0"
+  }
+}
