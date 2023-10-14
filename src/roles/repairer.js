@@ -1,6 +1,6 @@
-const roleUtils = require('src/utils/utils.role')
+const roleUtils = require('utils_role')
 
-const roleRepairer = {
+const repairer = {
     /** @param {Creep} creep **/
     run: function (creep) {
         if (creep.memory['repairing'] && creep.store[RESOURCE_ENERGY] === 0) {
@@ -24,4 +24,4 @@ const roleRepairer = {
     }
 };
 
-module.exports = roleRepairer;
+module.exports = repairer;

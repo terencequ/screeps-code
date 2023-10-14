@@ -1,15 +1,15 @@
-const roleHarvester = require('src/roles/role.harvester');
-const roleEnergyTransporter = require('src/roles/role.energy-transporter');
-const roleBuilder = require('src/roles/role.builder');
-const roleUpgrader = require('src/roles/role.upgrader');
-const roleRepairer = require('src/roles/role.repairer');
+const roleHarvester = require('roles_harvester');
+const roleEnergyTransporter = require('roles_energy-transporter');
+const roleBuilder = require('roles_builder');
+const roleUpgrader = require('roles_upgrader');
+const roleRepairer = require('roles_repairer');
 
-const roleBarbarian = require('src/roles/combat-role.barbarian');
-const roleArcher = require('src/roles/combat-role.archer');
+const roleBarbarian = require('roles_barbarian');
+const roleArcher = require('roles_archer');
 
-const structureSpawner = require('src/structures/structure.spawner');
+const structureSpawner = require('structures_spawner');
 
-const creepUtils = require('src/utils/utils.creep')
+const creepUtils = require('utils_creep')
 
 module.exports.loop = function () {
     // Clean dead creeps from memory

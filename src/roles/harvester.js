@@ -1,9 +1,9 @@
-const roleUtils = require('src/utils/utils.role')
+const roleUtils = require('utils_role')
 
 /**
  * A harvester's job is to harvest resources, and deposit them in containers.
  */
-const roleHarvester = {
+const harvester = {
     /** @param {Creep} creep **/
     run: function(creep) {
         if(creep.store.getFreeCapacity() > 0) {
@@ -18,4 +18,4 @@ const roleHarvester = {
     }
 };
 
-module.exports = roleHarvester;
+module.exports = harvester;

@@ -1,4 +1,4 @@
-const creepUtils = require('src/utils/utils.creep')
+const creepUtils = require('utils_creep')
 
 const spawnQuota = {
     harvesters: 1,

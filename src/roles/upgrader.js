@@ -1,6 +1,6 @@
-var roleUtils = require('src/utils/utils.role')
+var roleUtils = require('utils_role')
 
-var roleUpgrader = {
+var upgrader = {
     /** @param {Creep} creep **/
     run: function(creep) {
         if(creep.memory['upgrading'] && creep.store[RESOURCE_ENERGY] === 0) {
@@ -24,4 +24,4 @@ var roleUpgrader = {
     }
 };
 
-module.exports = roleUpgrader;
+module.exports = upgrader;
